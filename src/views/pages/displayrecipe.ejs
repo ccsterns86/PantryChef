@@ -1,0 +1,93 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+<%
+var all_text = "";
+if (data){
+    all_text += '<div class="jumbotron">';
+    all_text += '<h1 style="text-align:center;"><i>' + data.name + '</i></h1>';
+    all_text += '<h3 style="text-align:center;">By: ' + data.username + '</h3>';
+    all_text += '</div>';
+    all_text += '<div class = "container"><div class="row"><div class="col-sm-5">';
+    all_text += '<img src="'
+            + data.image_source
+            + '" alt="'
+            + data.name
+            + '" width="450px" height="300px">';
+    all_text += '</div><div class="col-sm-7">';
+    if (data.prep_time != ""){
+        all_text += '<h4 style="line-height:10px;margin:10px 0 5px 0;padding:0;">Cook Time: ' + data.prep_time + '</h4>';
+    }
+    else{
+        all_text += '<h4 style="line-height:10px;margin:10px 0 5px 0;padding:0;">Cook Time: undefined</h4>';
+    }
+    all_text += '<br>';
+    all_text += '<h4 style="line-height:10px;margin:0;padding:0;">Makes ' +  data.servings + ' serving(s)</h4>';
+    all_text += '</div></div></div><hr><div id="ingredients_body" class="container">';
+    all_text += '<h3 class="text-left p-4">Ingredients</h3><hr>';
+    for (var i = 0; i < data.ingredient_ids.length; i++){
+        all_text += '<div class="form-group" height="mr-auto"><div class="row"><div class="col-sm-3"><p>'
+                + ingredients[i + 1]
+                + '</p></div><div class="col-sm-9"><p>'
+                + data.ingredient_amounts[i]
+                + '</p></div></div></div>';
+    }
+    all_text += '</div><hr><div id = "steps_body" class = "container"><div id="steps" class="form-group">';
+    all_text += '<h3 class="text-left p-4">Steps</h3><hr>';
+    for (var i = 0; i < data.steps.length; i++){
+        all_text += '<p><b>Step '
+                + i
+                +':</b> '
+                + data.steps[i]
+                + '</p>';
+    }
+    all_text += '<br><br><br></div></div>';
+}
+else{
+    all_text += '<div class="jumbotron">';
+    all_text += '<h1 style="text-align:center;"><i>' + info.title + '</i></h1>';
+    all_text += '<div class="text-center"><a href="'+ info.sourceUrl +'">' + info.sourceUrl + '</a></div>';
+    all_text += '</div>';
+    all_text += '<div class = "container"><div class="row"><div class="col-sm-5">';
+    all_text += '<img src="'
+            + info.image
+            + '" alt="'
+            + info.title
+            + '" width="450px" height="300px">';
+    all_text += '</div><div class="col-sm-7">';
+    if (info.readyInMinutes != ""){
+        all_text += '<h4 style="line-height:10px;margin:10px 0 5px 0;padding:0;">Cook Time: ' + info.readyInMinutes + '</h4>';
+    }
+    else{
+        all_text += '<h4 style="line-height:10px;margin:10px 0 5px 0;padding:0;">Cook Time: undefined</h4>';
+    }
+    all_text += '<br>';
+    all_text += '<h4 style="line-height:10px;margin:0;padding:0;">Makes ' +  info.servings + ' serving(s)</h4>';
+    all_text += '</div></div></div><hr><div id="ingredients_body" class="container">';
+    all_text += '<h3 class="text-left p-4">Ingredients</h3><hr>';
+    if (ingredients) {
+        var ingredients_list = '';
+            ingredients.forEach(function (ingredient) {
+                ingredients_list += '<div class="form-group" height="mr-auto"><div class="row"><div class="col-sm-3"><p>'+ ingredient.name +'</p></div><div class="col-sm-9"><p>'+ ingredient.amount +' ' + ingredient.unit +'</p></div></div></div>';
+            });
+       };
+    all_text += ingredients_list;
+
+    all_text += '</div><hr><div id = "steps_body" class = "container"><div id="steps" class="form-group">';
+    all_text += '<h3 class="text-left p-4">Steps</h3><hr>';
+    all_text += info.instructions
+    all_text += '</hr><br><br><br></div></div>';
+}
+%>
+<%-all_text%>
+
+
+<footer>
+        <P>Thank you for using Pantry Chef!</P>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
+</body>

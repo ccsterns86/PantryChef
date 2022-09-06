@@ -1,0 +1,79 @@
+<%- include('../partials/header') %>
+    <style>
+        /* Carousel */
+        .carousel .carousel-item {
+            height: 500px;
+        }
+        .carousel-item img {
+            position: relative;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            min-height: 500px;
+        }
+      
+        .carousel-caption {
+            position: absolute;
+            top: 0;
+            bottom: auto;
+            background-color: rgba(131, 175, 155, 0.897);
+            padding: 20px;
+            border-radius: .5rem;
+        }
+    </style>
+<%- include('../partials/menu') %>
+    <div class="jumbotron text-center">
+        <h1 style="font-family: 'Dancing Script', cursive; font-size: 70px;">Pantry Chef
+            <img class="img-fluid ml-4" src="../../resources/img/pantry_chef.png" alt="Chef Hat" width="80">
+        </h1>
+    </div>
+    <div class="container">
+        <h1 style="text-align:center">Featured Recipes</h1>
+        <div id="recipeCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+            <li data-target="#recipeCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#recipeCarousel" data-slide-to="1"></li>
+            <li data-target="#recipeCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="card">
+                    <div class="card text-white bg-dark mb-3">
+                        <img class="card-img-top" src="http://laurabraydesigns.com/wp-content/uploads/2013/04/Pepperoni-Pizza.jpg" alt="Pepperoni-Pizza" width="500" height="500">
+                        <div class="carousel-caption d-none d-sm-block">
+                            <h5>Homemade Pepperoni Pizza</h5>
+                            <p>Find delicious recipes like this one in the Search Recipes Tab.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card text-white bg-dark mb-3">
+                    <img class="card-img-top" src="https://www.bakefromscratch.com/wp-content/uploads/2019/01/brownie704JB.jpg" alt="Brownies" style="height:500">
+                    <div class="carousel-caption d-none d-sm-block">
+                        <h5>Brownies with Strawberries</h5>
+                        <p>Find delicious recipes like this one in the Search Recipes Tab.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card text-white bg-dark mb-3">
+                    <img class="card-img-top" src="https://www.tasteofhome.com/wp-content/uploads/2017/10/exps34567_SD163617B02_03_8b-1.jpg" alt="Ravioli" style="height:500">
+                    <div class="carousel-caption d-none d-sm-block">
+                        <h5>Greek Ravioli</h5>
+                        <p>Find delicious recipes like this one in the Search Recipes Tab.</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+<%- include('../partials/footer') %>

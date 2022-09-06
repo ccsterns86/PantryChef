@@ -1,0 +1,46 @@
+<!-- Author: Cassandra Sterns -->
+<!-- Purpose: This page is used to display a users pantry. Here 
+    they can add, delete and view the items of their pantry. -->
+
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+    <div class="jumbotron text-center">
+        <h1 style="text-align:center">Your Pantry</h1>
+    </div>
+    <div class="text-center">
+       <h3>Add Pantry Items</h3> 
+    </div>
+    <form class="form-inline justify-content-center" id="addPantryItem" method="post" action="/PantryChef/pantry/add">
+        <input class="form-control mr-2 mt-4" type="text" name="pantry_item" id="pantry_item" placeholder="Enter an item"> 
+        <button align="right" class="btn btn-default mt-2" type="submit"id="submit_item">Add Pantry Item</button>
+    </form>
+    <div class="text-center">
+        <br>
+        <h3>Delete Pantry Items</h3> 
+        <p>Select the items you would like to delete, then click the delete button</p>
+        <form class="form-inline justify-content-center" id="deletePantryItem" method="post" action="/PantryChef/pantry/delete">  
+            <button align="right" class="btn btn-default" type="submit"id="delete_item">Delete Pantry Items</button>  
+        </from>
+     </div>
+    <br>
+    <br>
+    <div class="container align-items-center">
+        <div class="row justify-content-center" id="pantry">
+            <%
+            if(pantry_contents) {
+                var checkboxes = ``;
+                for(let i = 0; i < pantry_contents.length; i++) {
+                    checkboxes += `
+                    <div class="col-md-4">
+                        <div class="custom-control custom-checkbox">
+                            <input name="pantryCheck" type="checkbox" class="custom-control-input" value="${pantry_contents[i].name}" id="pantry${i}" form="deletePantryItem">
+                            <label class="custom-control-label" for="pantry${i}">${pantry_contents[i].name}</label>
+                        </div>
+                    </div>`;
+                } %>
+                <%- checkboxes %>
+            <% } %>
+        </div>   
+    </div>             
+    </div>   
+<%- include('../partials/footer') %>

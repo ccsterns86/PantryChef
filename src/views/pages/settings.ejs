@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+    <div class="jumbotron text-center">
+        <div class="media">
+            <%
+            var user_name = 'User';
+            if(row){
+                user_name = row.username;
+                console.log("Got data row "+ JSON.stringify(row));
+                console.log("Got notification settings "+row.notify_settings);
+                console.log("Got username "+row.username);
+            }
+            %>
+            <h4><%- user_name %></h4>
+            <div class="media-body">
+                <h1 class="mt-0">Your Account</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+    <div class="container">
+        <h4 class="p-4">PROFILE</h4>
+        <div class="btn-group-vertical">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#name_edit_cont">Change name</button>
+            <div class="input-group mb-3 collapse" id="name_edit_cont">
+                <!-- add form to this to make the post request work - see Flickr API implementation -->
+                <form action="/PantryChef/settings/changeName" method="post">
+                <input type="text" class="form-control" id="name_edit_field" name="new_name" placeholder="New name" aria-label="New name" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Change</button>
+                </div>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#password_edit_cont">Change password</button>
+            <div class="input-group mb-3 collapse" id="password_edit_cont">
+                <form action="/PantryChef/settings/changePassword" method="post">
+                <input type="password" class="form-control" id="password_edit_field" name="new_password" placeholder="New password" aria-label="New password" aria-describedby="button-addon3">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon3">Change</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h4 class="p-4">PRIVACY AND SECURITY</h4>
+        <div class="btn-group-vertical">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#history_cont">Manage account</button>
+            <div class="collapse" id="history_cont">
+                <form action="/PantryChef/home/deleteAccount" method="post"> <!-- settings -->
+                    <button type="submit" class="btn btn-danger">Delete account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="container d-flex justify-content-center">
+        <button type="button" class="btn btn-default">Log out</button>
+    </div> -->
+    <br>
+
+    </div>
+<%- include('../partials/footer') %>

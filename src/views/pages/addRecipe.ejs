@@ -1,0 +1,115 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+    <div class="jumbotron text-center">
+        <h1 style="text-align:center">Add Recipe</h1>
+    </div>
+
+    <div id="recipe_body" class="container">
+        <form class="form-group" autocomplete="off">
+            <input type="text" class="form-control" id="recipe_name" placeholder="Recipe name">
+            <p></p>
+            <input type="text" class="form-control" id="recipe_description" placeholder="Description of recipe">
+            <p></p>
+            <input type="text" class="form-control" id="recipe_time" placeholder="How long does it take to make?">
+            <p></p>
+            <input type="text" class="form-control" id="recipe_servings" placeholder="How many servings does it make?">
+        </form>
+        <h4 class="text-center p-4">Ingredients</h4>
+        <form id="ingredients" class="form-group" height="mr-auto" autocomplete="off">
+            <div class="row">
+                <div class="col-sm">
+                   <input type="text" class="form-control" id="ingredient" placeholder="Ingredient">
+                </div>
+                <div class="col-sm">
+                    <input type="text" class="form-control" id="ingredient_amount" placeholder="Amount">
+                </div>
+            </div>    
+        </form>
+        <button id="add_ingredient" class="btn btn-default" onclick="add_ingredient()">Add Ingredient</button>
+        <form id="steps" class="form-group" autocomplete="off">
+            <h4 class="text-center p-4">Steps</h4>
+            <textarea type="text" class="form-control" id="step" placeholder="Next step"></textarea>
+        </form>
+        <button class="btn btn-default" onclick="add_step()">Add Step</button>
+
+        </div>
+
+        <div class="d-flex justify-content-center p-4">
+            <button align="right" class="btn btn-default" type="submit" id="submit_recipe" onclick="submit_recipe()">Submit Recipe</button>
+        </div>
+
+        <script>
+            var num_ingredients = 0;
+	    var num_steps = 0;
+
+	    function add_ingredient(){
+	        num_ingredients += 1;
+	        var new_ingredient =  "<p></p><div class='row'><div class='col-sm'><input type='text' class='form-control' id='ingredient" + num_ingredients + "' placeholder='Ingredient'></div>";
+                var new_ingredient_amount =  "<div class='col-sm'><input type='text' class='form-control' id='ingredient_amount" + num_ingredients + "' placeholder='Amount'></div></div>";
+
+                document.getElementById("ingredients").innerHTML += new_ingredient + new_ingredient_amount;
+                document.getElementById("ingredients").style.height = "auto" 
+            }
+
+            function add_step(){
+	        num_steps += 1;
+                var new_step = "<p></p><textarea type='text' class='form-control' id='step" + num_steps + "' placeholder='Next step'></textarea>";
+		document.getElementById("steps").innerHTML += new_step;
+                document.getElementById("steps").style.height = "auto" 
+            }
+
+
+            function submit_recipe(){
+                const recipe_name = document.getElementById("recipe_name").value;
+                const recipe_description = document.getElementById("recipe_description").value; 
+		const recipe_time = document.getElementById("recipe_time").value;
+                const recipe_servings = document.getElementById("recipe_servings").value;
+                const recipe_ingredients = [];
+		const recipe_ingredient_amounts = [];
+		recipe_ingredients.push(document.getElementById("ingredient").value);
+	        recipe_ingredient_amounts.push(document.getElementById("ingredient_amount").value);
+                for (var i = 1; i<= num_ingredients; i++)
+		{
+		    recipe_ingredients.push(document.getElementById("ingredient"+i).value);
+                    recipe_ingredient_amounts.push(document.getElementById("ingredient_amount"+i).value);
+		} 
+
+		const recipe_steps = [];
+		recipe_steps.push(document.getElementById("step").value);
+		for (var j = 1; j<= num_steps; j++)
+		{
+                    recipe_steps.push(document.getElementById("step"+j).value);
+                }
+
+                const data = { recipe_name, recipe_description, recipe_time, recipe_servings, recipe_ingredients, recipe_ingredient_amounts, recipe_steps };
+		const options = {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify(data)
+		};
+                //fetch('/PantryChef/ftest', options).then(response => {
+
+		fetch('/PantryChef/addRecipe', options).then(response => {
+		    console.log(response);
+            location.reload()
+		});
+
+
+
+            }
+        </script>
+
+
+    </div>
+
+    <footer>
+        <P>Thank you for using Pantry Chef!</P>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>

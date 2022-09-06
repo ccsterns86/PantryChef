@@ -1,0 +1,34 @@
+Instructions for getting the server running on your machine:
+- Install node
+- Make sure you are in the src folder of the repo
+- "Npm run start"
+
+
+This is how I got a server running:
+
+1. Install Nodejs (from their website)
+2. Run the following command in terminal (this takes awhile): 
+        sudo apt install npm
+3. npm init
+        I just entered in one thing for package name, then used the default for the rest
+        You then enter Yes
+4. npm install express body-parser --save
+5. Create an express server by putting the following in a server.js file:
+    let express  = require('express');
+    let app = express();
+    let bodyParser = require('body-parser');
+
+    app.use(bodyParser.json());
+
+    app.get('/', function(req, res) {
+        res.send('<h1>Welcome to Node.js project setup</h1>')
+    })
+
+    app.listen(3000, function(){
+        console.log("Server started on port: 3000")
+    })
+6. open the package.json file and in the "scripts" object add "start": "node server.js"
+7. npm run start
+8. Open browser http:/localhost:3000/
+9. npm install ejs
+        So that you can use ejs

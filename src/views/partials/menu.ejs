@@ -1,0 +1,222 @@
+    <style>
+        /* Navbar */
+        .navbar-custom {
+            background-color: rgb(252, 157, 154);
+        }
+        .custom-toggler .navbar-toggler {
+            border-color: rgb(83, 17, 29);
+        }
+        .custom-toggler .navbar-toggler-icon {
+            background-image: url(
+"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(83, 17, 29, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .navbar-text {
+            color: rgb(83, 17, 29);
+        }
+        /* Jumbotron */
+        .jumbotron{
+            background-color: #fae0ce;
+        }
+        footer {
+            text-align: center;
+            padding: 3px;
+            background-color: rgb(252, 157, 154);
+            color: white;
+        }
+        /* Button */
+        .btn-default {
+            background-color: rgba(131, 175, 155, 0.897);
+            color: white;
+        }
+
+        /* Alert */
+        .alert {
+          background-color: #f44336;
+          color: white;
+        }
+
+        .closebtn {
+          margin-left: 15px;
+          color: white;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .closebtn:hover {
+          color: black;
+        }
+
+        /* Font */
+        *{
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
+    <link rel='icon' href='../resources/img/pantry_chef' type='image/x-icon'/>
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.js"   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="   crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="/PantryChef">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="/PantryChef/searchRecipe">Search Recipes <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="navbar-brand" href="/PantryChef/pantry">My Pantry <span class="sr-only">(current)</span></a>
+                </li>
+                <%
+                if(userID) {
+                  if(userID != 1) {
+                    var addRecipes = `
+                      <li class="nav-item active">
+                        <a class="navbar-brand" href="/PantryChef/addRecipe">Add Recipes <span class="sr-only">(current)</span></a>
+                      </li>               
+                    `;
+                    %>
+                    <%- addRecipes %>
+                    <%
+                  } 
+                } %>
+              
+            </ul>
+            <ul  class="navbar-nav ml-auto">
+              <%
+              if(userID) {
+                if(userID == 1) {
+                  var login = `
+                  <li>
+                    <div class="text-center">
+                      <a class="navbar-brand" href="#signupModal" data-toggle="modal" onclick="openSignUpModal()">Sign up</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="text-center pr-3">
+                      <button href="#loginModal" class="btn btn-default" data-toggle="modal">Login</button>
+                    </div>
+                  </li>
+                  
+                  `;
+                  %>
+                  <%- login %>
+                  <%
+                }
+                else {
+                  var logout = `
+                  <li class="nav-item active">
+                    <a class="navbar-brand" href="/PantryChef/settings">Settings <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li>
+                    <div class="text-center pr-3">
+                      <form method="post" action="/PantryChef/logout">
+                        <button class="btn btn-default" type="submit">Logout</button>
+                      </form>
+                    </div>
+                  </li>
+                  `;
+                  %>
+                  <%- logout %>
+                  <%
+                  
+                }
+              }
+              %>
+              <li>
+                <h4 class="mt-1" style="font-family: 'Dancing Script', cursive; color: rgb(175, 34, 60)">Pantry Chef</h3>
+              </li>
+            </ul>
+        </div>
+    </nav>
+    <%
+    if(userID) {
+      if(userID == 1) {
+        var loginPopup = `
+          <div id="loginModal" class="modal fade">
+            <div class="modal-dialog modal-login">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Login</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-group" method="post" action="/PantryChef/login">
+                    <input id="loginUsername" type="text" class="form-control" name="username" placeholder="Username" required="required"/>
+                    <input id="loginPwd" type="password" class="form-control" name="password" placeholder="Password" required="required"/>
+                    <button id="login_submit_button" class="btn btn-default btn-block login-btn" type="submit">Login</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        `; 
+        var signupPopup = `
+          <div id="signupModal" class="modal fade">
+            <div class="modal-dialog modal-login">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Sign Up</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-group" method="post" action="/PantryChef/signup">
+                    <input id="signupUsername" type="text" class="form-control" name="username" placeholder="Username" required="required"/>
+                    <input id="psw" type="password" class="form-control" name="password" placeholder="Password" required="required"/>
+                    <input id="cpsw" type="password" class="form-control" name="confirm password" placeholder="Confirm Password" required="required"/>
+                    <button id="signup_submit_button" class="btn btn-default btn-block login-btn" type="submit" disabled>Sign up</button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <div id="message" style="display: block">
+                    <h3>Password must contain the following:</h3>
+                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                    <p id="capital" class="invalid">
+                      A <b>capital (uppercase)</b> letter
+                    </p>
+                    <p id="number" class="invalid">A <b>number</b></p>
+                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                    <p id="match" class="invalid">
+                      Password and Confirm Password Match
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `; 
+        %>
+        <%- loginPopup %>
+        <%- signupPopup %>
+        <%
+      }
+    }%> 
+    <%
+    if (error) {
+      var alert = `
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+        <strong>Error</strong> ${error}
+      </div>
+      `;
+      %>
+      <%- alert %>
+      <%
+    }
+    %>
+    <script src="../../resources/js/login.js"></script>
+    

@@ -1,0 +1,62 @@
+h4{
+    font-style:italic;
+    color: rgb(175,34,60);
+
+}
+a{
+    color:rgb(175,34,60);
+}
+a:hover{
+    color:rgb(100,0,30);
+}
+.container{
+    min-height: 87.5vh;
+    max-height: 200vh;
+}
+.searchContainer{
+    width:60vw;
+}
+.searchBar{
+    width: 50vw;
+    margin: 2vh 0vw;
+    padding: 1vh;
+    border: 2px solid rgb(175,34,60);
+}
+.btn-custom{
+    padding: 1vh;
+    background-color: rgb(252,157,154);
+    color: rgb(175,34,60);
+    border: 2px solid rgb(175,34,60);
+}
+.btn-custom:hover{
+    background-color: rgb(175,34,60);
+    color: white;
+}
+.select-custom{
+    padding: 1vh;
+    background-color: white;
+    color: rgba(131, 185, 155, 0.897);
+    border: 0px;
+    border-radius: 20%;
+}
+.select-custom:hover{
+    /*background-color: rgba(181, 235, 205, 0.897);*/
+    color: rgb(0,45,25);
+}
+.searchRow{
+    margin: 5vh 0vw;
+}
+
+.leftColumn{
+    padding: 2vh 2vw;
+    border: 0px solid rgb(100,0,30);
+    background-color: #fcf0e8;
+    color: rgb(100,0,30);
+}
+.rightColumn{
+    padding: 2vh 2vw;
+}
+.rightParagraph{
+    position: absolute;
+    left: 40vw;
+}
